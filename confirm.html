@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>You're In! — Pragma Founding Cohort</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+</head>
+<body>
+
+<div class="w">
+
+<nav class="nav">
+  <div class="logo">pragma.</div>
+  <div class="nav-right">
+    <a href="/" class="nav-link">Back to home</a>
+  </div>
+</nav>
+
+<section class="confirm-hero">
+  <div class="confirm-inner">
+    <div class="confirm-success">
+      <h1>You're in! 🎉</h1>
+      <p class="confirm-subtitle">Welcome to the Pragma founding cohort.</p>
+    </div>
+
+    <div class="confirm-position">
+      <div class="position-display">
+        <div class="position-number" id="position-number">—</div>
+        <div class="position-label">of 1,000</div>
+      </div>
+      <p class="position-message">Spots filling up fast</p>
+    </div>
+
+    <div class="confirm-card">
+      <h2 class="confirm-card-title">Your referral code</h2>
+      <div class="referral-code-display" id="referral-code">Loading…</div>
+      <p class="referral-code-note">Share this code to skip the queue</p>
+    </div>
+
+    <div class="confirm-timeline">
+      <h2 class="confirm-card-title">What happens next</h2>
+      <div class="timeline-item">
+        <div class="timeline-icon">📧</div>
+        <div class="timeline-text">
+          <strong>Week 1–2</strong>
+          <p>Check your email for onboarding details</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-icon">📋</div>
+        <div class="timeline-text">
+          <strong>Week 3–4</strong>
+          <p>Complete 6 intake modules (~15 min total)</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-icon">💊</div>
+        <div class="timeline-text">
+          <strong>Day 1</strong>
+          <p>Get your personalized Foundation Stack</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-icon">✓</div>
+        <div class="timeline-text">
+          <strong>Daily</strong>
+          <p>60-second check-ins to train the algorithm</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="confirm-footer">
+      <p>Check your email — we've sent a welcome message with more details.</p>
+      <a href="/" class="confirm-btn">← Back to home</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-content">
+    <a href="#">pragma.health</a>
+  </div>
+  <p class="footer-note">Pragma is not a medical service and does not provide diagnoses or treatment. All recommendations are educational and authored by a Registered Dietitian.</p>
+</footer>
+
+</div>
+
+<!-- Supabase JS client -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+
+<!-- Configuration -->
+<script src="config.local.js"></script>
+<script src="config.js"></script>
+
+<!-- Confirmation page logic -->
+<script>
+(function () {
+
+  var supabaseClient = null;
+
+  function getClient() {
+    if (supabaseClient) return supabaseClient;
+    var cfg = window.PRAGMA_CONFIG;
+    if (!cfg || !cfg.supabaseUrl || !cfg.supabaseAnonKey) {
+      console.error('[Pragma] Supabase config missing.');
+      return null;
+    }
+    if (!window.supabase) {
+      console.error('[Pragma] Supabase JS library not loaded.');
+      return null;
+    }
+    supabaseClient = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
+    return supabaseClient;
+  }
+
+  function getUrlParam(name) {
+    return new URLSearchParams(window.location.search).get(name) || null;
+  }
+
+  async function loadConfirmation() {
+    var email = getUrlParam('email');
+    var position = getUrlParam('position');
+
+    if (!email || !position) {
+      document.querySelector('#position-number').textContent = '?';
+      document.querySelector('#referral-code').textContent = 'Missing email or position';
+      return;
+    }
+
+    // Display position
+    document.querySelector('#position-number').textContent = position;
+
+    // Fetch referral code from Supabase
+    var client = getClient();
+    if (!client) {
+      document.querySelector('#referral-code').textContent = 'Error loading code';
+      return;
+    }
+
+    var result = await client
+      .from('waitlist')
+      .select('referral_code')
+      .eq('email', email)
+      .single();
+
+    if (result.error) {
+      console.error('[Pragma] Error fetching referral code:', result.error);
+      document.querySelector('#referral-code').textContent = 'Error loading code';
+      return;
+    }
+
+    if (result.data) {
+      document.querySelector('#referral-code').textContent = result.data.referral_code;
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', loadConfirmation);
+
+}());
+</script>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+/**
+ * Local Configuration (Development Only)
+ *
+ * COPY THIS FILE TO: config.local.js (gitignored)
+ * Then populate with your actual Supabase credentials from the Supabase dashboard.
+ *
+ * DO NOT commit config.local.js to git — it's gitignored to prevent credential leaks.
+ * Only the .env.example should be in git (as a template).
+ */
+
+// Set window.PRAGMA_CONFIG before any scripts load
+window.PRAGMA_CONFIG = {
+  // Supabase (get these from Supabase dashboard > Settings > API)
+  // The anon key is safe to expose (uses Row-Level Security and rate limiting)
+  supabaseUrl: 'https://your-project.supabase.co',
+  supabaseAnonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+
+  // Site URL (used for redirects and referral links)
+  siteUrl: 'http://localhost:5173', // or your dev server URL
+
+  // Environment
+  appEnv: 'development',
+
+  // Backend API presence (set to true if you have an API running locally)
+  hasBackendApi: false,
+};
