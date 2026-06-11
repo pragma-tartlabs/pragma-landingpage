@@ -50,6 +50,23 @@
 
   // ── Core signup flow ───────────────────────────────────────────────────────
 
+  async function addToKit(email) {
+    // Non-blocking: call Kit API via Netlify Function.
+    // If it fails, log it but don't block the confirmation page redirect.
+    try {
+      var response = await fetch('/.netlify/functions/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email }),
+      });
+      if (!response.ok) {
+        console.warn('[Pragma] Kit subscription failed:', response.status);
+      }
+    } catch (err) {
+      console.warn('[Pragma] Kit request failed:', err);
+    }
+  }
+
   async function signUp(email) {
     var client = getClient();
 
@@ -86,6 +103,10 @@
       }
       throw insertResult.error;
     }
+
+    // Await Kit subscription before returning so the fetch isn't cancelled
+    // by the page redirect. addToKit never throws — failure is swallowed.
+    await addToKit(email);
 
     return { position: position, referralCode: referralCode };
   }
