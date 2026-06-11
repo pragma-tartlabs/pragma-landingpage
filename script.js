@@ -34,6 +34,20 @@
     return new URLSearchParams(window.location.search).get(name) || null;
   }
 
+  /**
+   * Returns true only for addresses that have:
+   *   - a non-empty local part (no leading @)
+   *   - an @ sign
+   *   - a domain segment with at least one dot
+   *   - a TLD of 2+ non-whitespace, non-@ characters
+   *
+   * Rejects: abc  abc@  @abc  abc@abc  abc@gmail  abc@gmail.
+   * Accepts: abc@gmail.com  test@example.org  hello@pragmahealth.io
+   */
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+  }
+
   // ── Core signup flow ───────────────────────────────────────────────────────
 
   async function signUp(email) {
@@ -100,14 +114,23 @@
       var btn   = form.querySelector('button');
       var input = form.querySelector('input[type="email"]');
 
+      // Clear any custom validation message as the user edits
+      input.addEventListener('input', function () {
+        input.setCustomValidity('');
+      });
+
       btn.addEventListener('click', async function (e) {
         e.preventDefault();
 
-        var email = input.value.trim();
-        if (!email || !email.includes('@')) {
+        var email = input.value.trim().toLowerCase();
+
+        if (!email || !isValidEmail(email)) {
+          input.setCustomValidity('Please enter a valid email address (e.g. you@example.com)');
+          input.reportValidity();
           input.focus();
           return;
         }
+        input.setCustomValidity('');
 
         setFormState(btn, input, 'submitting');
 
