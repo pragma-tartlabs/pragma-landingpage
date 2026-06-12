@@ -131,6 +131,15 @@ button { font-family: inherit; }
   letter-spacing: -0.02em;
   color: var(--plum);
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.logo-img {
+  height: 26px;
+  width: auto;
+  display: block;
+  flex-shrink: 0;
 }
 .nav-links { display: flex; align-items: center; gap: clamp(1.25rem, 3vw, 2.25rem); }
 .nav-link {
@@ -1135,7 +1144,7 @@ button { font-family: inherit; }
   flex-wrap: wrap;
   margin-bottom: 1.25rem;
 }
-.footer-logo { font-family: var(--serif); font-size: 20px; color: var(--plum); }
+.footer-logo { font-family: var(--serif); font-size: 20px; color: var(--plum); display: inline-flex; align-items: center; gap: 8px; }
 .footer-links { display: flex; gap: 1.75rem; flex-wrap: wrap; }
 .footer-links a {
   font-size: 12.5px;
