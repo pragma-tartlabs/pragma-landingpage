@@ -525,12 +525,14 @@ button { font-family: inherit; }
   animation: float 6s ease-in-out infinite alternate;
 }
 .chip-checkin {
-  top: -38px;
-  left: -26px;
+  position: absolute;
+  top: -36px;
+  right: 14px;
   display: flex;
   flex-direction: column;
   gap: 7px;
   padding: 11px 14px;
+  z-index: 10;
 }
 .chip-title { display: inline-flex; align-items: center; gap: 5px; }
 .chip-title i { font-size: 13px; color: var(--berry); }
@@ -1611,7 +1613,7 @@ button { font-family: inherit; }
 @media (max-width: 720px) {
   .nav-links { display: none; }
   .trust-strip { justify-content: flex-start; gap: 0.85rem 1.75rem; }
-  .chip-checkin { left: -8px; top: -36px; }
+  .chip-checkin { right: 12px; top: -36px; }
   .chip-promise { right: -6px; bottom: -14px; }
 }
 
@@ -1627,6 +1629,14 @@ button { font-family: inherit; }
   .pc-foot { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
   .faq-item p { padding-right: 0.5rem; }
   .footer-top { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .chip-checkin {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    width: 100%;
+    max-width: 260px;
+    margin: 0 auto 24px;
+  }
 }
 
 /* ── Reduced motion ────────────────────────────────────────────────── */
@@ -2057,4 +2067,319 @@ button { font-family: inherit; }
 @media (prefers-reduced-motion: reduce) {
   .quote-grid .quote-item { opacity: 1; transform: none; transition: none; }
   .in .label::before, .hero-kicker::before { animation: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Round 3 additions — timeline redesign, mock UI, pricing grid,
+   protocol card & lead adjustments.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Protocol card: adaptive footer line ──────────────────────────── */
+
+.pc-adapt {
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: var(--hairline);
+  font-size: 12px;
+  color: var(--mauve);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  line-height: 1.5;
+}
+.pc-adapt .ti { color: var(--berry); flex-shrink: 0; font-size: 13px; }
+
+/* ── Life-stage intro: wider lead ─────────────────────────────────── */
+
+.lead-wide { max-width: 780px; }
+
+/* ── How-it-works: two-column layout ──────────────────────────────── */
+
+.how-layout {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 3.5rem;
+  align-items: start;
+  margin-top: 3rem;
+}
+.how-preview {
+  position: sticky;
+  top: 7rem;
+}
+
+/* ── Mock app card ─────────────────────────────────────────────────── */
+
+.mock-frame {
+  background: #fff;
+  border: 1px solid rgba(58, 8, 32, 0.09);
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(28, 10, 24, 0.06), 0 32px 64px rgba(28, 10, 24, 0.12);
+  overflow: hidden;
+}
+.mock-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  border-bottom: 1px solid rgba(58, 8, 32, 0.07);
+  background: var(--cream);
+}
+.mock-logo {
+  font-family: var(--serif);
+  font-size: 15px;
+  color: var(--plum);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.mock-logo .logo-img { width: 22px; height: 22px; border-radius: 4px; }
+.mock-dots {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+.mock-dots i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--blush-2);
+  transition: background 0.4s ease, transform 0.35s var(--ease-out);
+  display: block;
+  font-style: normal;
+}
+.how-preview[data-active="1"] .mock-dots [data-dot="1"],
+.how-preview[data-active="2"] .mock-dots [data-dot="2"],
+.how-preview[data-active="3"] .mock-dots [data-dot="3"],
+.how-preview[data-active="4"] .mock-dots [data-dot="4"] {
+  background: var(--berry);
+  transform: scale(1.3);
+}
+
+/* ── Mock panels ────────────────────────────────────────────────────── */
+
+.mock-stage {
+  position: relative;
+  min-height: 290px;
+  overflow: hidden;
+}
+.mock-panel {
+  position: absolute;
+  inset: 0;
+  padding: 1.25rem 1.5rem 1.5rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.45s var(--ease-out), transform 0.45s var(--ease-out);
+  pointer-events: none;
+}
+.mock-panel.is-active {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+/* Panel content ─────────────────────────────────────────────────────── */
+
+.mock-eyebrow {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--berry);
+  margin-bottom: 0.45rem;
+}
+.mock-q {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  color: var(--ink);
+  line-height: 1.35;
+  margin-bottom: 0.85rem;
+}
+.mock-opts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 1rem;
+}
+.mock-opt {
+  font-size: 11.5px;
+  padding: 5px 12px;
+  border-radius: 100px;
+  border: 1px solid rgba(90, 15, 53, 0.15);
+  color: var(--body-c);
+  background: var(--cream);
+}
+.mock-opt.is-on {
+  background: rgba(196, 30, 91, 0.09);
+  color: var(--berry);
+  border-color: rgba(196, 30, 91, 0.28);
+  font-weight: 600;
+}
+.mock-progress {
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(196, 30, 91, 0.10);
+  margin-bottom: 0.7rem;
+  overflow: hidden;
+}
+.mock-progress span {
+  display: block;
+  height: 100%;
+  background: var(--berry);
+  border-radius: 2px;
+}
+.mock-hint {
+  font-size: 11.5px;
+  color: var(--mauve);
+  line-height: 1.5;
+}
+
+/* Panel 2 — supplement list */
+
+.mock-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 0.75rem;
+}
+.mock-list li {
+  font-size: 12.5px;
+  color: var(--body-c);
+  padding: 7px 10px;
+  background: var(--cream-2);
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.mock-list li .ti { flex-shrink: 0; font-size: 13px; }
+.mock-list li .ti-check { color: var(--berry); }
+.mock-list li .ti-minus { color: var(--mauve); }
+.mock-list li span { margin-left: auto; font-size: 11px; color: var(--mauve); }
+.mock-list li.is-skip { opacity: 0.55; }
+.mock-list li.is-skip span { color: var(--plum); font-weight: 600; }
+
+/* Panel 3 — product recs */
+
+.mock-rec {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 11px;
+  border-radius: 10px;
+  background: var(--cream-2);
+  margin-bottom: 7px;
+  border: 1px solid rgba(58, 8, 32, 0.06);
+}
+.mock-rec-name { font-size: 12.5px; color: var(--ink); font-weight: 500; }
+.mock-rec-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mauve);
+  background: rgba(58, 8, 32, 0.05);
+  padding: 3px 8px;
+  border-radius: 100px;
+}
+.mock-rec-tag.premium { color: var(--plum); background: var(--blush); }
+
+/* Panel 4 — tracker bars */
+
+.mock-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  height: 72px;
+  margin-bottom: 0.75rem;
+}
+.mock-bars i {
+  flex: 1;
+  background: linear-gradient(to top, var(--berry), var(--blush-2));
+  border-radius: 3px 3px 0 0;
+  height: var(--h, 50%);
+  display: block;
+  font-style: normal;
+  opacity: 0.85;
+}
+
+/* ── Timeline step states ──────────────────────────────────────────── */
+
+/* Position relative so number/check can be layered absolutely */
+.step-num { position: relative; }
+
+.step-num-val,
+.step-num-check {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.35s ease, transform 0.35s var(--ease-out);
+  display: block;
+  line-height: 1;
+}
+.step-num-val { font-family: var(--serif); font-size: 22px; }
+.step-num-check { opacity: 0; transform: translate(-50%, -50%) scale(0.4); font-size: 18px; }
+
+/* Active step: circle fills berry */
+.step-row.step-active .step-num {
+  background: var(--berry);
+  color: #fff;
+  border-color: var(--berry);
+  box-shadow: 0 0 0 6px rgba(196, 30, 91, 0.12), var(--shadow-soft);
+  transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, color 0.4s ease;
+}
+/* Done step: circle fills plum, number swaps to checkmark */
+.step-row.step-done .step-num {
+  background: var(--plum);
+  color: #fff;
+  border-color: var(--plum);
+  transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+}
+.step-row.step-done .step-num-val { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
+.step-row.step-done .step-num-check { opacity: 1; transform: translate(-50%, -50%); }
+
+/* ── Timeline connector line (replaces ::after) ────────────────────── */
+
+/* Suppress the pseudo-element connector — explicit .step-line used instead */
+.step-rail::after { display: none !important; }
+
+.step-line {
+  flex: 1;
+  width: 2px;
+  margin-top: 6px;
+  background: rgba(196, 30, 91, 0.08);
+  border-radius: 1px;
+  overflow: hidden;
+  display: block;
+}
+.step-row:last-child .step-line { display: none; }
+.step-line-fill {
+  display: block;
+  width: 100%;
+  height: 0;
+  background: linear-gradient(to bottom, var(--berry), rgba(90, 15, 53, 0.55));
+  border-radius: 1px;
+  transition: height 0.65s var(--ease-out);
+}
+.step-row.step-done .step-line-fill { height: 100%; }
+.step-row.step-active .step-line-fill { height: 45%; }
+
+/* ── Pricing: three-card grid ─────────────────────────────────────── */
+
+.price-grid--3 {
+  max-width: 980px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* ── Responsive overrides ─────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .how-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+  .how-preview { display: none; }
+  .price-grid--3 { grid-template-columns: 1fr; max-width: 440px; }
+}
+
+@media (max-width: 560px) {
+  .step-rail::after { display: none !important; }
 }

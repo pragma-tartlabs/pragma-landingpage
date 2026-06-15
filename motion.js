@@ -477,4 +477,65 @@
     requestAnimationFrame(frame);
   }
 
+  // ── 9. Scroll-driven how-it-works timeline ─────────────────────────
+  //
+  // As the user scrolls, each step circle fills with color, the connector
+  // line animates downward, and the mock app card switches panels to
+  // match. Uses getBoundingClientRect on scroll (cheap — only 4 elements)
+  // rather than IntersectionObserver so the active step tracks smoothly
+  // in both scroll directions.
+
+  (function () {
+    var howSection = document.querySelector('.how-section');
+    var howPreview = document.querySelector('.how-preview[data-active]');
+    var stepRows   = Array.prototype.slice.call(document.querySelectorAll('.step-row[data-step]'));
+    var panelEls   = Array.prototype.slice.call(document.querySelectorAll('.mock-panel[data-panel]'));
+
+    if (!stepRows.length) return;
+
+    var currentActive = 0;
+
+    function activateStep(n) {
+      if (n === currentActive) return;
+      currentActive = n;
+
+      stepRows.forEach(function (row) {
+        var rn = parseInt(row.getAttribute('data-step'), 10);
+        row.classList.remove('step-active', 'step-done');
+        if (rn < n) row.classList.add('step-done');
+        else if (rn === n) row.classList.add('step-active');
+      });
+
+      if (howPreview) howPreview.setAttribute('data-active', String(n));
+
+      panelEls.forEach(function (p) {
+        var pn = parseInt(p.getAttribute('data-panel'), 10);
+        p.classList.toggle('is-active', pn === n);
+      });
+    }
+
+    // Initialize: panel 1 active right away.
+    activateStep(1);
+
+    if (reduced) return;
+
+    function onScroll() {
+      var vh  = window.innerHeight;
+      var trigger = vh * 0.45; // step becomes active when its top crosses 45% down the viewport
+      var best = 1;
+
+      for (var i = 0; i < stepRows.length; i++) {
+        var rect = stepRows[i].getBoundingClientRect();
+        if (rect.top < trigger) {
+          best = parseInt(stepRows[i].getAttribute('data-step'), 10);
+        }
+      }
+
+      activateStep(best);
+    }
+
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // run once on load
+  }());
+
 }());
