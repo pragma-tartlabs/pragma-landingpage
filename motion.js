@@ -256,24 +256,58 @@
     });
   }
 
-  // ── 6. "Join" buttons that jump to the nearest signup form ─────────
+  // ── 6. "Get my stack" buttons → return to the hero at the top ───────
+  //
+  // Every CTA brings the visitor all the way back to the very top of
+  // the page, exactly like a fresh load: hero headline, hero CTA, and
+  // hero email input all fully in view. The scroll is driven frame by
+  // frame on the scrolling element itself (rather than window.scrollTo)
+  // so the landing position is guaranteed to be 0 — it can never get
+  // stuck halfway down. Once there, the email field is gently focused
+  // (preventScroll keeps the viewport pinned to the top, so it is never
+  // re-centered on the input).
+
+  var scrollEl = document.scrollingElement || document.documentElement;
+
+  function smoothToTop(done) {
+    var start = scrollEl.scrollTop;
+    if (reduced || start <= 0) {
+      scrollEl.scrollTop = 0;
+      if (done) done();
+      return;
+    }
+    var duration = Math.min(950, 420 + start * 0.16);
+    var startTs = null;
+    function step(ts) {
+      if (startTs === null) startTs = ts;
+      var p = Math.min((ts - startTs) / duration, 1);
+      var eased = 1 - Math.pow(1 - p, 3); // easeOutCubic — smooth, no bounce
+      scrollEl.scrollTop = Math.round(start * (1 - eased));
+      if (p < 1) {
+        requestAnimationFrame(step);
+      } else {
+        scrollEl.scrollTop = 0; // pin exactly to the hero
+        if (done) done();
+      }
+    }
+    requestAnimationFrame(step);
+  }
 
   document.querySelectorAll('[data-scroll-to-form]').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var form = document.querySelector('.hero-email') || document.querySelector('.final-form');
-      if (!form) return;
-      form.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
-      var input = form.querySelector('input[type="email"]');
-      setTimeout(function () {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      smoothToTop(function () {
+        var form = document.querySelector('.hero-email');
+        var input = form ? form.querySelector('input[type="email"]') : null;
         if (input) input.focus({ preventScroll: true });
-        if (!reduced) {
+        if (form && !reduced) {
           form.classList.remove('form-flash');
-          // Restart the ring animation if it already ran once.
           void form.offsetWidth;
           form.classList.add('form-flash');
           setTimeout(function () { form.classList.remove('form-flash'); }, 1300);
         }
-      }, reduced ? 0 : 550);
+      });
     });
   });
 
