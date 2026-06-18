@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Partner · Pragma</title>
-  <meta name="description" content="Partner with Pragma — for clinicians, researchers, women's health organizations, and brands that care about evidence and transparency." />
+  <meta name="description" content="Partner with Pragma — for clinicians who want to bring evidence-based supplement guidance to their patients, and for supplement brands that meet our bar." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="styles.css" />
@@ -23,39 +23,265 @@
       <a class="nav-link" href="index.html#how-it-works">How it works</a>
       <a class="nav-link" href="index.html#who-its-for">Who it's for</a>
       <a class="nav-link" href="index.html#pricing">Pricing</a>
+      <a class="nav-link nav-link--active" href="partner.html">Partner</a>
     </nav>
     <a class="nav-btn" href="index.html#top">Get my stack</a>
   </div>
 </header>
 
 <main>
-  <div class="inner-page">
-    <h1>Partner with <em>Pragma.</em></h1>
 
-    <p>Pragma partners with clinicians, researchers, brands, and women's health organizations that care about evidence, transparency, and better nutrition guidance.</p>
+<!-- ── Partner Hero ──────────────────────────────────────────────── -->
+<section class="partner-hero">
+  <div class="partner-hero-inner">
+    <p class="label reveal">Partnership</p>
+    <h1 class="h2 reveal" style="--d:.05s">We partner with people who <em>don't cut corners.</em></h1>
+    <p class="lead lead-hl reveal" style="--d:.1s">Two kinds of partners make Pragma better: clinicians who bring expertise into the community, and supplement brands whose products actually meet the bar. Neither gets special treatment. Both get something worth having.</p>
 
-    <h2>Who we partner with</h2>
-    <ul>
-      <li>Registered Dietitians and clinicians</li>
-      <li>Women's health organizations</li>
-      <li>Research and clinical advisors</li>
-      <li>Supplement brands with evidence-backed products</li>
-      <li>Employers and wellness teams</li>
-    </ul>
+    <div class="partner-who-divider reveal" style="--d:.15s">
+      <span>Who are you?</span>
+    </div>
 
-    <h2>Partnership principles</h2>
-    <ul>
-      <li>Recommendations stay evidence-first</li>
-      <li>Affiliate links are labeled when present</li>
-      <li>We do not sell our own supplements</li>
-      <li>Brand relationships never determine rankings</li>
-      <li>Transparency comes first</li>
-    </ul>
-
-    <h2>Get in touch</h2>
-    <p>If your work aligns with these values, we'd like to hear from you.</p>
-    <a class="page-cta" href="mailto:hello@pragma.health">Contact us about partnership opportunities</a>
+    <div class="partner-toggle reveal" style="--d:.18s" role="tablist" aria-label="Partner type">
+      <button class="ptoggle-btn ptoggle-btn--active" role="tab" aria-selected="true" aria-controls="panel-hcp" id="tab-hcp" onclick="showPartnerPanel('hcp', this)">Healthcare professional</button>
+      <button class="ptoggle-btn" role="tab" aria-selected="false" aria-controls="panel-brand" id="tab-brand" onclick="showPartnerPanel('brand', this)">Supplement brand</button>
+    </div>
   </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     PANEL: HEALTHCARE PROFESSIONAL
+══════════════════════════════════════ -->
+<div id="panel-hcp" class="partner-panel partner-panel--active" role="tabpanel" aria-labelledby="tab-hcp">
+  <div class="partner-panel-inner">
+
+    <!-- Intro card -->
+    <div class="ptnr-intro reveal">
+      <p class="ptnr-intro-eyebrow">For healthcare professionals</p>
+      <h2 class="ptnr-intro-h">Your expertise belongs in this conversation.</h2>
+      <p class="ptnr-intro-body">Pragma's community is full of women asking exactly the kinds of questions you field every day, about labs, hormones, life stage, and what's actually worth taking. Verified HCPs can engage with their credentials visible, contribute to clinical discussions, and help us make the guidance better. No brand deals, no commissions, no noise.</p>
+    </div>
+
+    <!-- Feature cards -->
+    <div class="ptnr-props-grid">
+      <div class="ptnr-prop reveal">
+        <span class="ptnr-prop-icon" aria-hidden="true">🏷️</span>
+        <div class="ptnr-prop-title">A badge that means something</div>
+        <p class="ptnr-prop-body">Verified HCPs are identified in the community by credential and specialty. Not a username. When you respond, users know they're hearing from a licensed professional in your field. We verify manually. We don't hand out badges.</p>
+      </div>
+      <div class="ptnr-prop reveal" style="--d:.06s">
+        <span class="ptnr-prop-icon" aria-hidden="true">🔬</span>
+        <div class="ptnr-prop-title">Evidence-first, always</div>
+        <p class="ptnr-prop-body">Pragma's protocol is RD-authored and evidence-graded. When you contribute, you're engaging with a community that already understands mechanism-first thinking. You're not starting from scratch, you're deepening a conversation that's already happening at a high level.</p>
+      </div>
+      <div class="ptnr-prop reveal" style="--d:.1s">
+        <span class="ptnr-prop-icon" aria-hidden="true">🔒</span>
+        <div class="ptnr-prop-title">Your license is yours</div>
+        <p class="ptnr-prop-body">Verification requires your license number and state. We check it, we confirm it, and then we keep it private. It never appears publicly. What appears publicly is your credential, specialty, and optionally your institution and a short bio.</p>
+      </div>
+      <div class="ptnr-prop reveal" style="--d:.14s">
+        <span class="ptnr-prop-icon" aria-hidden="true">📣</span>
+        <div class="ptnr-prop-title">Reach women who are already asking</div>
+        <p class="ptnr-prop-body">The women in our community are self-educated, lab-curious, and asking better questions than most providers expect. They don't need to be convinced nutrition matters, they need trustworthy clinical voices to help them navigate it.</p>
+      </div>
+    </div>
+
+    <!-- Steps -->
+    <div class="ptnr-steps-wrap reveal">
+      <p class="ptnr-section-label">What HCP partnership looks like</p>
+      <div class="ptnr-steps">
+        <div class="ptnr-step">
+          <div class="ptnr-step-num" aria-hidden="true">1</div>
+          <div class="ptnr-step-body">
+            <div class="ptnr-step-title">Submit your credentials</div>
+            <p class="ptnr-step-desc">Designation, specialty, training, current practice, license number and state. We also welcome a professional website, it helps us verify faster. Takes about five minutes.</p>
+          </div>
+        </div>
+        <div class="ptnr-step">
+          <div class="ptnr-step-num" aria-hidden="true">2</div>
+          <div class="ptnr-step-body">
+            <div class="ptnr-step-title">Manual verification</div>
+            <p class="ptnr-step-desc">Our team checks your license against your state medical or nutrition board. We aim to verify within 2–3 business days. You'll hear from us either way.</p>
+          </div>
+        </div>
+        <div class="ptnr-step">
+          <div class="ptnr-step-num" aria-hidden="true">3</div>
+          <div class="ptnr-step-body">
+            <div class="ptnr-step-title">Community access with credentials visible</div>
+            <p class="ptnr-step-desc">Once verified, your replies in the community display your credential and specialty. Users always know they're hearing from a licensed professional. Transparency is the feature, it's what makes your voice worth hearing here.</p>
+          </div>
+        </div>
+        <div class="ptnr-step">
+          <div class="ptnr-step-num" aria-hidden="true">4</div>
+          <div class="ptnr-step-body">
+            <div class="ptnr-step-title">Deeper collaboration, if it fits</div>
+            <p class="ptnr-step-desc">Some HCPs become Clinical Advisory Board contributors. Some co-author protocol notes or contribute to our evidence review process. That conversation happens after we know each other. It starts with verification.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- What we never do -->
+    <div class="ptnr-never reveal">
+      <p class="ptnr-section-label">What we never do</p>
+      <ul class="ptnr-never-list">
+        <li>Pay you to recommend specific products or brands</li>
+        <li>Ask you to promote anything. Your role here is clinical, not marketing</li>
+        <li>Publish your license number or personal contact information</li>
+        <li>Misrepresent your affiliation, you choose what appears next to your name</li>
+      </ul>
+    </div>
+
+    <!-- CTA -->
+    <div class="ptnr-cta reveal">
+      <h3 class="ptnr-cta-h">Ready to bring your expertise here?</h3>
+      <p class="ptnr-cta-body">Submit your credentials and we'll be in touch within a few business days. Verification is manual, that's intentional.</p>
+      <a class="ptnr-cta-btn" href="mailto:partner@pragmahealth.ai?subject=HCP%20Partnership">Apply for HCP verification →</a>
+      <p class="ptnr-cta-sub">Or email partner@pragmahealth.ai with "HCP Partnership" in the subject line.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PANEL: SUPPLEMENT BRAND
+══════════════════════════════════════ -->
+<div id="panel-brand" class="partner-panel" role="tabpanel" aria-labelledby="tab-brand">
+  <div class="partner-panel-inner">
+
+    <!-- Intro card -->
+    <div class="ptnr-intro reveal">
+      <p class="ptnr-intro-eyebrow">For supplement brands</p>
+      <h2 class="ptnr-intro-h">If your formula is good, we want to <em>know about it.</em></h2>
+      <p class="ptnr-intro-body">Pragma evaluates every supplement on the same rubric: dose, form, evidence, sourcing, and manufacturing quality. Combination products often can't be fully evaluated from a label alone. If you're willing to share your full formula under NDA, we can evaluate it properly, and recommend it to the women it's actually right for.</p>
+    </div>
+
+    <!-- Feature cards -->
+    <div class="ptnr-props-grid">
+      <div class="ptnr-prop reveal">
+        <span class="ptnr-prop-icon" aria-hidden="true">🔐</span>
+        <div class="ptnr-prop-title">Your formula stays yours</div>
+        <p class="ptnr-prop-body">Proprietary doses are covered under a mutual NDA and stored encrypted. They are accessed only by Pragma's clinical team and the recommendation engine. Never surfaced to users, never shared with competitors or third parties.</p>
+      </div>
+      <div class="ptnr-prop reveal" style="--d:.06s">
+        <span class="ptnr-prop-icon" aria-hidden="true">✍️</span>
+        <div class="ptnr-prop-title">You write what users see</div>
+        <p class="ptnr-prop-body">Your user-facing description is written and approved by you. We use it verbatim. Users see your brand name, your approved description, and our qualitative assessment. Never your exact doses or proprietary ratios.</p>
+      </div>
+      <div class="ptnr-prop reveal" style="--d:.1s">
+        <span class="ptnr-prop-icon" aria-hidden="true">📦</span>
+        <div class="ptnr-prop-title">Consolidation is the pitch</div>
+        <p class="ptnr-prop-body">When your combination product meets clinical doses for ingredients we'd otherwise recommend separately, we surface the consolidation to the user, along with the cost savings. That's a meaningful recommendation. A single product that replaces three is a real outcome for the woman taking it.</p>
+      </div>
+      <div class="ptnr-prop reveal" style="--d:.14s">
+        <span class="ptnr-prop-icon" aria-hidden="true">⚖️</span>
+        <div class="ptnr-prop-title">Same rubric as everyone else</div>
+        <p class="ptnr-prop-body">Disclosure doesn't inflate your ranking. Your SKU is evaluated on the same clinical criteria as every single-ingredient product we recommend. If a dose is below threshold, users see that. We don't suppress findings because a brand is in our network.</p>
+      </div>
+    </div>
+
+    <!-- What users actually see -->
+    <div class="ptnr-steps-wrap reveal">
+      <p class="ptnr-section-label">What users actually see</p>
+      <p class="ptnr-steps-note">Here's what a disclosed combination product looks like to a Pragma user. Your proprietary doses are never in this view.</p>
+
+      <div class="ptnr-qual-demo">
+        <div class="ptnr-qual-name">Ritual Essential for Women 35+</div>
+        <p class="ptnr-qual-desc">Methylated B-complex, magnesium glycinate, and vitamin D3+K2, formulated for women in perimenopause.</p>
+        <div class="ptnr-qual-chips">
+          <span class="ptnr-chip ptnr-chip--pass"><i class="ti ti-check" aria-hidden="true"></i> Meets clinical doses</span>
+          <span class="ptnr-chip ptnr-chip--pass"><i class="ti ti-check" aria-hidden="true"></i> Consolidates 3 supplements</span>
+          <span class="ptnr-chip-note">Saves ~$22/mo vs. buying separately</span>
+        </div>
+      </div>
+
+      <div class="ptnr-qual-demo ptnr-qual-demo--warn">
+        <div class="ptnr-qual-name">Hypothetical Blend, partial disclosure</div>
+        <p class="ptnr-qual-desc">B-complex and magnesium blend for women's daily support.</p>
+        <div class="ptnr-qual-chips">
+          <span class="ptnr-chip ptnr-chip--warn"><i class="ti ti-alert-triangle" aria-hidden="true"></i> Slightly below target on B12</span>
+          <span class="ptnr-chip-note">Still recommended as a value option for some users</span>
+        </div>
+      </div>
+
+      <p class="ptnr-steps-note" style="margin-top:1rem;">We don't hide gaps. A "slightly below target" flag coexists with your approved description, users make informed choices, and you know exactly what they're seeing.</p>
+    </div>
+
+    <!-- How the process works -->
+    <div class="ptnr-steps-wrap reveal">
+      <p class="ptnr-section-label">How the process works</p>
+      <div class="ptnr-steps">
+        <div class="ptnr-step">
+          <div class="ptnr-step-num" aria-hidden="true">1</div>
+          <div class="ptnr-step-body">
+            <div class="ptnr-step-title">Brand Disclosure Brief</div>
+            <p class="ptnr-step-desc">We send you a one-page overview of the process, the NDA terms, and what we're asking for. No commitment required at this stage.</p>
+          </div>
+        </div>
+        <div class="ptnr-step">
+          <div class="ptnr-step-num" aria-hidden="true">2</div>
+          <div class="ptnr-step-body">
+            <div class="ptnr-step-title">Mutual NDA</div>
+            <p class="ptnr-step-desc">Standard mutual agreement. Covers confidentiality of your formula and Pragma's evaluation rubric. Five-year term, Delaware jurisdiction. Signed before anything is shared.</p>
+          </div>
+        </div>
+        <div class="ptnr-step">
+          <div class="ptnr-step-num" aria-hidden="true">3</div>
+          <div class="ptnr-step-body">
+            <div class="ptnr-step-title">Full formula disclosure</div>
+            <p class="ptnr-step-desc">Ingredients, doses, forms, sourcing, third-party testing, contraindications, and your approved user-facing description. One form per SKU, re-submitted on any reformulation.</p>
+          </div>
+        </div>
+        <div class="ptnr-step">
+          <div class="ptnr-step-num" aria-hidden="true">4</div>
+          <div class="ptnr-step-body">
+            <div class="ptnr-step-title">RD evaluation</div>
+            <p class="ptnr-step-desc">Our clinical team evaluates your disclosure against our protocol rubric. You receive the qualitative output before it goes live, so there are no surprises.</p>
+          </div>
+        </div>
+        <div class="ptnr-step">
+          <div class="ptnr-step-num" aria-hidden="true">5</div>
+          <div class="ptnr-step-body">
+            <div class="ptnr-step-title">Live in the engine</div>
+            <p class="ptnr-step-desc">Your SKU becomes eligible for recommendations to users it's actually right for. You're notified when it goes live and when it's first recommended.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- What we never do -->
+    <div class="ptnr-never reveal">
+      <p class="ptnr-section-label">What we never do</p>
+      <ul class="ptnr-never-list">
+        <li>Share your proprietary formula with any third party, ever</li>
+        <li>Rank your product higher because you disclosed, quality is the only input</li>
+        <li>Accept changes to your user-facing description that misrepresent the formula</li>
+        <li>Recommend your product to users it isn't appropriate for, regardless of relationship</li>
+        <li>Take payment to influence where your product ranks</li>
+      </ul>
+    </div>
+
+    <!-- Not ready to disclose -->
+    <div class="ptnr-principles reveal">
+      <p class="ptnr-section-label">Not ready to disclose?</p>
+      <ul class="ptnr-principles-list">
+        <li>You don't have to. Pragma evaluates every product on publicly available label data where possible.</li>
+        <li>Products without NDA disclosure are labeled "Proprietary blend, doses not disclosed" and are excluded from consolidation recommendations.</li>
+        <li>Disclosure is always available later. When you're ready, the process starts with a conversation.</li>
+      </ul>
+    </div>
+
+    <!-- CTA -->
+    <div class="ptnr-cta reveal">
+      <h3 class="ptnr-cta-h">Start the conversation.</h3>
+      <p class="ptnr-cta-body">Tell us about your product and we'll send the Brand Disclosure Brief. No commitment, no cost, just a chance for us to evaluate what you've built.</p>
+      <a class="ptnr-cta-btn" href="mailto:partner@pragmahealth.ai?subject=Brand%20Partnership">Get in touch →</a>
+      <p class="ptnr-cta-sub">Email partner@pragmahealth.ai, include your brand name and the SKU you'd like evaluated.</p>
+    </div>
+
+  </div>
+</div>
+
 </main>
 
 <footer class="footer">
@@ -77,5 +303,23 @@
 </footer>
 
 </div>
+
+<script>
+  function showPartnerPanel(id, btn) {
+    document.querySelectorAll('.partner-panel').forEach(function(p) {
+      p.classList.remove('partner-panel--active');
+    });
+    document.getElementById('panel-' + id).classList.add('partner-panel--active');
+    document.querySelectorAll('.ptoggle-btn').forEach(function(b) {
+      b.classList.remove('ptoggle-btn--active');
+      b.setAttribute('aria-selected', 'false');
+    });
+    btn.classList.add('ptoggle-btn--active');
+    btn.setAttribute('aria-selected', 'true');
+  }
+</script>
+
+<!-- Presentation-layer motion -->
+<script src="motion.js?v=4"></script>
 </body>
 </html>
