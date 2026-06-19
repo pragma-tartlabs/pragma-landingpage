@@ -394,19 +394,6 @@ button { font-family: inherit; }
 
 .hero-caveat { font-size: 12.5px; color: var(--mauve); }
 .hero-caveat strong { color: var(--body-c); font-weight: 500; }
-.preview-link {
-  display: inline-block;
-  margin-top: 0.6rem;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--berry);
-  text-decoration: none;
-  letter-spacing: 0.01em;
-  transition: opacity 0.2s ease;
-}
-.preview-link[hidden] { display: none; }
-.preview-link:hover { opacity: 0.75; }
-
 /* Hero visual — protocol card + floating chips */
 
 .hero-visual {
@@ -1814,32 +1801,6 @@ button { font-family: inherit; }
 .inner-page .founder-list li { font-weight: 600; color: var(--plum); }
 .inner-page .page-cta { display: inline-block; margin-top: 1.5rem; background: var(--berry); color: #fff; border-radius: 100px; padding: 13px 28px; font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.25s ease, transform 0.25s var(--ease-out), box-shadow 0.25s ease; }
 .inner-page .page-cta:hover { background: #A91950; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(196, 30, 91, 0.32); }
-
-/* ── Preview page ──────────────────────────────────────────────────── */
-.preview-page { max-width: 780px; }
-.preview-kicker { font-size: 12.5px; font-weight: 600; color: var(--berry); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.35rem; }
-.preview-kicker i { font-size: 13px; }
-.preview-lead { font-size: 16.5px; color: var(--body-c); line-height: 1.75; margin-bottom: 2rem; max-width: 620px; }
-.preview-how { margin: 2.5rem 0; }
-.preview-steps { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 1rem; }
-.preview-step { display: flex; gap: 1.1rem; align-items: flex-start; }
-.preview-step-num { font-family: var(--serif); font-size: 13px; font-weight: 700; color: var(--berry); min-width: 28px; padding-top: 2px; }
-.preview-step strong { display: block; font-size: 14.5px; font-weight: 600; color: var(--ink); margin-bottom: 0.25rem; }
-.preview-step p { font-size: 14px; color: var(--body-c); line-height: 1.65; margin: 0; }
-.preview-card-wrap { margin: 1.5rem 0 2.5rem; }
-.preview-card-wrap .protocol-card { max-width: 440px; }
-.preview-promise { margin: 2rem 0; }
-.preview-trust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 1rem; }
-.preview-trust-item { background: var(--cream, #fdf8f5); border: 1px solid rgba(196, 30, 91, 0.1); border-radius: 14px; padding: 1.25rem; }
-.preview-trust-item i { font-size: 20px; color: var(--berry); display: block; margin-bottom: 0.5rem; }
-.preview-trust-item strong { display: block; font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 0.35rem; }
-.preview-trust-item p { font-size: 13px; color: var(--body-c); line-height: 1.6; margin: 0; }
-.preview-cta-block { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(196, 30, 91, 0.12); }
-.preview-cta-label { font-family: var(--serif); font-size: clamp(1.1rem, 2.5vw, 1.35rem); color: var(--plum); font-weight: 600; margin-bottom: 0.5rem; }
-@media (max-width: 600px) {
-  .preview-trust-grid { grid-template-columns: 1fr; }
-  .preview-card-wrap .protocol-card { max-width: 100%; }
-}
 
 /* ── Confirmation page ─────────────────────────────────────────────── */
 

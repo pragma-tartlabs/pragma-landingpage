@@ -135,12 +135,8 @@
       var btn   = form.querySelector('button');
       var input = form.querySelector('input[type="email"]');
 
-      // Clear any custom validation message as the user edits,
-      // and hide the preview link until a fresh duplicate result occurs.
       input.addEventListener('input', function () {
         input.setCustomValidity('');
-        var previewLink = form.parentElement.querySelector('.preview-link');
-        if (previewLink) previewLink.hidden = true;
       });
 
       btn.addEventListener('click', async function (e) {
@@ -167,11 +163,23 @@
           window.location.href = confirmUrl;
         } catch (err) {
           if (err.type === 'duplicate') {
-            setFormState(btn, input, 'duplicate');
-            var formEl = btn.closest('.hero-email, .final-form');
-            if (formEl) {
-              var previewLink = formEl.parentElement.querySelector('.preview-link');
-              if (previewLink) previewLink.hidden = false;
+            btn.textContent = 'Finding your spot…';
+            btn.disabled = true;
+            try {
+              var client = getClient();
+              var lookup = await client
+                .from('waitlist')
+                .select('position')
+                .eq('email', email)
+                .single();
+              if (lookup.error) throw lookup.error;
+              var confirmUrl = 'confirm.html?' +
+                'email=' + encodeURIComponent(email) +
+                '&position=' + encodeURIComponent(lookup.data.position);
+              window.location.href = confirmUrl;
+            } catch (lookupErr) {
+              console.error('[Pragma] Position lookup failed:', lookupErr);
+              setFormState(btn, input, 'duplicate');
             }
           } else {
             console.error('[Pragma] Signup error:', err);
