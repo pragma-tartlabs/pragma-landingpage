@@ -135,9 +135,12 @@
       var btn   = form.querySelector('button');
       var input = form.querySelector('input[type="email"]');
 
-      // Clear any custom validation message as the user edits
+      // Clear any custom validation message as the user edits,
+      // and hide the preview link until a fresh duplicate result occurs.
       input.addEventListener('input', function () {
         input.setCustomValidity('');
+        var previewLink = form.parentElement.querySelector('.preview-link');
+        if (previewLink) previewLink.hidden = true;
       });
 
       btn.addEventListener('click', async function (e) {
@@ -165,6 +168,11 @@
         } catch (err) {
           if (err.type === 'duplicate') {
             setFormState(btn, input, 'duplicate');
+            var formEl = btn.closest('.hero-email, .final-form');
+            if (formEl) {
+              var previewLink = formEl.parentElement.querySelector('.preview-link');
+              if (previewLink) previewLink.hidden = false;
+            }
           } else {
             console.error('[Pragma] Signup error:', err);
             setFormState(btn, input, 'error');

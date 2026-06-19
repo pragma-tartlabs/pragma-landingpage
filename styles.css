@@ -68,7 +68,9 @@ button { font-family: inherit; }
 
 /* ── Shared section scaffolding ────────────────────────────────────── */
 
-.section { padding: clamp(4.5rem, 9vw, 7.5rem) clamp(1.25rem, 5vw, 2.5rem); }
+.section { padding: clamp(5rem, 10vw, 8rem) clamp(1.25rem, 5vw, 2.5rem); }
+.section--tight { padding-top: clamp(3.5rem, 7vw, 5.5rem); padding-bottom: clamp(3.5rem, 7vw, 5.5rem); }
+.section--open  { padding-top: clamp(6.5rem, 12vw, 10rem); padding-bottom: clamp(6.5rem, 12vw, 10rem); }
 .section-inner { max-width: 1080px; margin: 0 auto; }
 .section-inner.narrow { max-width: 820px; }
 
@@ -221,6 +223,22 @@ button { font-family: inherit; }
   box-shadow: 0 8px 20px rgba(196, 30, 91, 0.32);
 }
 .nav-btn:active { transform: translateY(0); }
+
+/* Secondary / ghost CTA — used for non-conversion nav actions (Back, Return, etc.) */
+.nav-btn--ghost {
+  background: transparent;
+  color: var(--plum);
+  border: 1.5px solid rgba(90, 15, 53, 0.3);
+  box-shadow: none;
+}
+.nav-btn--ghost:hover {
+  background: rgba(90, 15, 53, 0.06);
+  color: var(--plum);
+  border-color: rgba(90, 15, 53, 0.55);
+  box-shadow: none;
+  transform: translateY(-1px);
+}
+.nav-btn--ghost:active { transform: translateY(0); }
 
 /* ── Hero ──────────────────────────────────────────────────────────── */
 
@@ -376,17 +394,26 @@ button { font-family: inherit; }
 
 .hero-caveat { font-size: 12.5px; color: var(--mauve); }
 .hero-caveat strong { color: var(--body-c); font-weight: 500; }
+.preview-link {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--berry);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  transition: opacity 0.2s ease;
+}
+.preview-link[hidden] { display: none; }
+.preview-link:hover { opacity: 0.75; }
 
 /* Hero visual — protocol card + floating chips */
 
-.hero-visual { position: relative; }
-.hero-visual::before {
-  content: '';
-  position: absolute;
-  inset: 8% -4% -4% 8%;
-  background: linear-gradient(135deg, rgba(245, 216, 224, 0.85), rgba(247, 240, 236, 0.5));
-  border-radius: 28px;
-  transform: rotate(2.5deg);
+.hero-visual {
+  position: relative;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: 0;
 }
 
 .protocol-card {
@@ -403,6 +430,7 @@ button { font-family: inherit; }
   align-items: center;
   gap: 1rem;
   margin-bottom: 1.1rem;
+  padding-right: 160px; /* reserve space so chip-checkin never overlaps eyebrow */
 }
 .pc-eyebrow {
   font-size: 10px;
@@ -706,7 +734,7 @@ button { font-family: inherit; }
   color: var(--ink);
   margin-bottom: 0.6rem;
 }
-.promise-body { font-size: 14px; line-height: 1.7; color: var(--body-c); }
+.promise-body { font-size: 14px; line-height: 1.7; color: var(--body-c); max-width: 52ch; }
 
 /* ── Audience ──────────────────────────────────────────────────────── */
 
@@ -749,7 +777,7 @@ button { font-family: inherit; }
   color: var(--ink);
   margin-bottom: 0.5rem;
 }
-.aud-body { font-size: 13.5px; color: var(--body-c); line-height: 1.7; }
+.aud-body { font-size: 13.5px; color: var(--body-c); line-height: 1.7; max-width: 54ch; }
 
 /* ── How it works ──────────────────────────────────────────────────── */
 
@@ -809,7 +837,7 @@ button { font-family: inherit; }
   color: var(--ink);
   margin-bottom: 0.5rem;
 }
-.step-content p { font-size: 14.5px; color: var(--body-c); line-height: 1.7; }
+.step-content p { font-size: 14.5px; color: var(--body-c); line-height: 1.7; max-width: 50ch; }
 
 .disclosure-box {
   margin-top: 2.5rem;
@@ -833,6 +861,7 @@ button { font-family: inherit; }
   color: var(--body-c);
   line-height: 1.65;
   margin: 0;
+  max-width: 66ch;
 }
 
 .product-preview-placeholder {
@@ -1120,16 +1149,12 @@ button { font-family: inherit; }
 /* ── Founder letter ────────────────────────────────────────────────── */
 
 .whitney-section {
-  background:
-    radial-gradient(ellipse 50% 40% at 96% 4%, rgba(245, 216, 224, 0.5) 0%, transparent 65%),
-    var(--cream);
+  background: var(--cream);
 }
 .whitney-inner {
   max-width: 720px;
   margin: 0 auto;
-  background:
-    radial-gradient(ellipse 70% 40% at 100% 0%, rgba(245, 216, 224, 0.4) 0%, transparent 60%),
-    #fff;
+  background: #fff;
   border: var(--hairline);
   border-radius: 24px;
   padding: clamp(2rem, 5vw, 3.5rem);
@@ -1165,6 +1190,9 @@ button { font-family: inherit; }
   height: 100%;
   object-fit: cover;
   display: block;
+}
+.founder-img--samantha {
+  object-position: center 18%;
 }
 .whitney-name {
   font-family: var(--serif);
@@ -1787,6 +1815,32 @@ button { font-family: inherit; }
 .inner-page .page-cta { display: inline-block; margin-top: 1.5rem; background: var(--berry); color: #fff; border-radius: 100px; padding: 13px 28px; font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.25s ease, transform 0.25s var(--ease-out), box-shadow 0.25s ease; }
 .inner-page .page-cta:hover { background: #A91950; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(196, 30, 91, 0.32); }
 
+/* ── Preview page ──────────────────────────────────────────────────── */
+.preview-page { max-width: 780px; }
+.preview-kicker { font-size: 12.5px; font-weight: 600; color: var(--berry); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.35rem; }
+.preview-kicker i { font-size: 13px; }
+.preview-lead { font-size: 16.5px; color: var(--body-c); line-height: 1.75; margin-bottom: 2rem; max-width: 620px; }
+.preview-how { margin: 2.5rem 0; }
+.preview-steps { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 1rem; }
+.preview-step { display: flex; gap: 1.1rem; align-items: flex-start; }
+.preview-step-num { font-family: var(--serif); font-size: 13px; font-weight: 700; color: var(--berry); min-width: 28px; padding-top: 2px; }
+.preview-step strong { display: block; font-size: 14.5px; font-weight: 600; color: var(--ink); margin-bottom: 0.25rem; }
+.preview-step p { font-size: 14px; color: var(--body-c); line-height: 1.65; margin: 0; }
+.preview-card-wrap { margin: 1.5rem 0 2.5rem; }
+.preview-card-wrap .protocol-card { max-width: 440px; }
+.preview-promise { margin: 2rem 0; }
+.preview-trust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 1rem; }
+.preview-trust-item { background: var(--cream, #fdf8f5); border: 1px solid rgba(196, 30, 91, 0.1); border-radius: 14px; padding: 1.25rem; }
+.preview-trust-item i { font-size: 20px; color: var(--berry); display: block; margin-bottom: 0.5rem; }
+.preview-trust-item strong { display: block; font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 0.35rem; }
+.preview-trust-item p { font-size: 13px; color: var(--body-c); line-height: 1.6; margin: 0; }
+.preview-cta-block { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(196, 30, 91, 0.12); }
+.preview-cta-label { font-family: var(--serif); font-size: clamp(1.1rem, 2.5vw, 1.35rem); color: var(--plum); font-weight: 600; margin-bottom: 0.5rem; }
+@media (max-width: 600px) {
+  .preview-trust-grid { grid-template-columns: 1fr; }
+  .preview-card-wrap .protocol-card { max-width: 100%; }
+}
+
 /* ── Confirmation page ─────────────────────────────────────────────── */
 
 .confirm-hero {
@@ -2014,6 +2068,7 @@ button { font-family: inherit; }
   .step-row { grid-template-columns: 44px 1fr; gap: 1rem; }
   .step-num { width: 42px; height: 42px; font-size: 18px; }
   .step-rail::after { margin-top: 6px; }
+  .pc-head { padding-right: 0; } /* chip repositions below on mobile */
   .pc-foot { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
   .faq-item p { padding-right: 0.5rem; }
   .footer-top { flex-direction: column; align-items: flex-start; gap: 1rem; }
@@ -2024,6 +2079,18 @@ button { font-family: inherit; }
     width: 100%;
     max-width: 260px;
     margin: 0 auto 24px;
+  }
+}
+
+/* Mobile hero: reduce h1 size to prevent 4-line wrap on small screens */
+@media (max-width: 440px) {
+  .hero h1 {
+    font-size: clamp(1.95rem, 8.4vw, 2.45rem);
+    line-height: 1.1;
+  }
+  .hero-body {
+    font-size: 1rem;
+    line-height: 1.7;
   }
 }
 
