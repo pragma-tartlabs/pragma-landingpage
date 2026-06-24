@@ -311,6 +311,22 @@
     });
   });
 
+  document.querySelectorAll('[data-open-guide-modal]').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (typeof window.openGuideModal === 'function') window.openGuideModal();
+    });
+  });
+
+  // Auto-open modal when URL contains ?guide=open (links from about/partner pages)
+  if (/[?&]guide=open/.test(window.location.search)) {
+    if (typeof window.openGuideModal === 'function') {
+      window.openGuideModal();
+    } else {
+      document.addEventListener('pragma:ready', function () { window.openGuideModal(); }, { once: true });
+    }
+  }
+
   // ── 7. Copy referral link (confirmation page) ──────────────────────
 
   var copyBtn = document.getElementById('copy-referral');

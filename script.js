@@ -50,14 +50,14 @@
 
   // ── Core signup flow ───────────────────────────────────────────────────────
 
-  async function addToKit(email) {
+  async function addToKit(email, firstName) {
     // Non-blocking: call Kit API via Netlify Function.
     // If it fails, log it but don't block the confirmation page redirect.
     try {
       var response = await fetch('/.netlify/functions/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email }),
+        body: JSON.stringify({ email: email, first_name: firstName || '' }),
       });
       if (!response.ok) {
         console.warn('[Pragma] Kit subscription failed:', response.status);
@@ -67,7 +67,7 @@
     }
   }
 
-  async function signUp(email) {
+  async function signUp(email, firstName) {
     var client = getClient();
 
     // Count existing rows to derive position.
@@ -85,6 +85,7 @@
       .from('waitlist')
       .insert({
         email:         email,
+        first_name:    firstName || null,
         referral_code: referralCode,
         referred_by:   getUrlParam('ref'),
         position:      position,
@@ -106,14 +107,14 @@
 
     // Await Kit subscription before returning so the fetch isn't cancelled
     // by the page redirect. addToKit never throws — failure is swallowed.
-    await addToKit(email);
+    await addToKit(email, firstName);
 
     return { position: position, referralCode: referralCode };
   }
 
   // ── Form state helpers ─────────────────────────────────────────────────────
 
-  function setFormState(btn, input, state) {
+  function setFormState(btn, inputs, state) {
     var states = {
       submitting: { text: 'Joining…',            btnDisabled: true,  inputDisabled: true  },
       success:    { text: 'You\'re on the list!', btnDisabled: true,  inputDisabled: false },
@@ -121,74 +122,123 @@
       error:      { text: 'Error — try again?',   btnDisabled: false, inputDisabled: false },
     };
     var s = states[state];
-    btn.textContent   = s.text;
-    btn.disabled      = s.btnDisabled;
-    input.disabled    = s.inputDisabled;
+    btn.textContent = s.text;
+    btn.disabled    = s.btnDisabled;
+    inputs.forEach(function (inp) { inp.disabled = s.inputDisabled; });
+  }
+
+  // ── Shared submit handler ──────────────────────────────────────────────────
+
+  async function handleSubmit(btn, nameInput, emailInput, modalEl) {
+    var firstName = nameInput ? nameInput.value.trim() : '';
+    var email     = emailInput.value.trim().toLowerCase();
+    var inputs    = [emailInput].concat(nameInput ? [nameInput] : []);
+
+    if (nameInput && !firstName) {
+      nameInput.setCustomValidity('Please enter your first name');
+      nameInput.reportValidity();
+      nameInput.focus();
+      return;
+    }
+    if (nameInput) nameInput.setCustomValidity('');
+
+    if (!email || !isValidEmail(email)) {
+      emailInput.setCustomValidity('Please enter a valid email address (e.g. you@example.com)');
+      emailInput.reportValidity();
+      emailInput.focus();
+      return;
+    }
+    emailInput.setCustomValidity('');
+
+    setFormState(btn, inputs, 'submitting');
+
+    try {
+      var result = await signUp(email, firstName);
+      if (modalEl) modalEl.classList.remove('is-open');
+      var confirmUrl = 'confirm.html?' +
+        'email=' + encodeURIComponent(email) +
+        '&position=' + encodeURIComponent(result.position);
+      window.location.href = confirmUrl;
+    } catch (err) {
+      if (err.type === 'duplicate') {
+        btn.textContent = 'Finding your spot…';
+        btn.disabled = true;
+        try {
+          var client = getClient();
+          var lookup = await client
+            .from('waitlist')
+            .select('position')
+            .eq('email', email)
+            .single();
+          if (lookup.error) throw lookup.error;
+          if (modalEl) modalEl.classList.remove('is-open');
+          var confirmUrl = 'confirm.html?' +
+            'email=' + encodeURIComponent(email) +
+            '&position=' + encodeURIComponent(lookup.data.position);
+          window.location.href = confirmUrl;
+        } catch (lookupErr) {
+          console.error('[Pragma] Position lookup failed:', lookupErr);
+          setFormState(btn, inputs, 'duplicate');
+        }
+      } else {
+        console.error('[Pragma] Signup error:', err);
+        setFormState(btn, inputs, 'error');
+        emailInput.focus();
+      }
+    }
   }
 
   // ── Form binding ───────────────────────────────────────────────────────────
 
   document.addEventListener('DOMContentLoaded', function () {
-    var forms = document.querySelectorAll('.hero-email, .final-form');
 
-    forms.forEach(function (form) {
-      var btn   = form.querySelector('button');
-      var input = form.querySelector('input[type="email"]');
+    // Modal form
+    var modal     = document.getElementById('guide-modal');
+    var modalForm = modal ? modal.querySelector('.modal-form') : null;
+    if (modal && modalForm) {
+      var modalBtn        = modalForm.querySelector('button[type="submit"]');
+      var modalNameInput  = modalForm.querySelector('input[name="first_name"]');
+      var modalEmailInput = modalForm.querySelector('input[type="email"]');
 
-      input.addEventListener('input', function () {
-        input.setCustomValidity('');
-      });
+      modalNameInput.addEventListener('input', function () { modalNameInput.setCustomValidity(''); });
+      modalEmailInput.addEventListener('input', function () { modalEmailInput.setCustomValidity(''); });
 
-      btn.addEventListener('click', async function (e) {
+      modalBtn.addEventListener('click', function (e) {
         e.preventDefault();
-
-        var email = input.value.trim().toLowerCase();
-
-        if (!email || !isValidEmail(email)) {
-          input.setCustomValidity('Please enter a valid email address (e.g. you@example.com)');
-          input.reportValidity();
-          input.focus();
-          return;
-        }
-        input.setCustomValidity('');
-
-        setFormState(btn, input, 'submitting');
-
-        try {
-          var result = await signUp(email);
-          // Redirect to confirmation page with email and position
-          var confirmUrl = 'confirm.html?' +
-            'email=' + encodeURIComponent(email) +
-            '&position=' + encodeURIComponent(result.position);
-          window.location.href = confirmUrl;
-        } catch (err) {
-          if (err.type === 'duplicate') {
-            btn.textContent = 'Finding your spot…';
-            btn.disabled = true;
-            try {
-              var client = getClient();
-              var lookup = await client
-                .from('waitlist')
-                .select('position')
-                .eq('email', email)
-                .single();
-              if (lookup.error) throw lookup.error;
-              var confirmUrl = 'confirm.html?' +
-                'email=' + encodeURIComponent(email) +
-                '&position=' + encodeURIComponent(lookup.data.position);
-              window.location.href = confirmUrl;
-            } catch (lookupErr) {
-              console.error('[Pragma] Position lookup failed:', lookupErr);
-              setFormState(btn, input, 'duplicate');
-            }
-          } else {
-            console.error('[Pragma] Signup error:', err);
-            setFormState(btn, input, 'error');
-            input.focus();
-          }
-        }
+        handleSubmit(modalBtn, modalNameInput, modalEmailInput, modal);
       });
-    });
+
+      // Close on backdrop click
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) modal.classList.remove('is-open');
+      });
+
+      // Close on Escape
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') modal.classList.remove('is-open');
+      });
+
+      // Close button
+      var closeBtn = modal.querySelector('.modal-close');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function () { modal.classList.remove('is-open'); });
+      }
+    }
+
+    // Expose opener for motion.js and inline onclick
+    window.openGuideModal = function () {
+      if (modal) {
+        modal.classList.add('is-open');
+        if (modalNameInput) modalNameInput.focus();
+      }
+    };
+
+    // Auto-open when navigated from about/partner pages via ?guide=open
+    if (new URLSearchParams(window.location.search).get('guide') === 'open') {
+      window.openGuideModal();
+      history.replaceState(null, '', window.location.pathname);
+    }
+
   });
 
 }());

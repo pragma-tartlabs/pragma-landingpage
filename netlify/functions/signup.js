@@ -17,6 +17,7 @@ exports.handler = async (event) => {
   }
 
   const email = String(body.email || '').trim().toLowerCase();
+  const firstName = String(body.first_name || '').trim();
 
   if (!email) {
     return {
@@ -47,6 +48,7 @@ exports.handler = async (event) => {
         body: JSON.stringify({
           api_key: apiKey,
           email,
+          ...(firstName ? { first_name: firstName } : {}),
         }),
       }
     );

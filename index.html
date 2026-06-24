@@ -31,7 +31,7 @@
       <a class="nav-link" href="#promise">Our promise</a>
       <a class="nav-link" href="#pricing">Pricing</a>
     </nav>
-    <button class="nav-btn" data-scroll-to-form>Get my stack</button>
+    <button class="nav-btn" data-open-guide-modal>Get my stack</button>
   </div>
 </header>
 
@@ -49,10 +49,7 @@
       <p class="hero-body lead-hl reveal" style="--d:.12s">Supplement guidance built for you. Pragma accounts for your life stage, your hormones, and cuts through the noise to help get your body what it needs right now. Built by Registered Dietitians, with zero brand deals clouding the logic.</p>
 
       <div class="hero-cta-row reveal" style="--d:.18s">
-        <div class="hero-email">
-          <input type="email" placeholder="you@email.com" required autocomplete="email" aria-label="Email address" />
-          <button>Get my stack</button>
-        </div>
+        <button class="hero-cta-btn" data-open-guide-modal>Get my stack</button>
       </div>
       <p class="hero-caveat reveal" style="--d:.24s">No credit card. No catch. <strong>Free to get started.</strong></p>
     </div>
@@ -319,7 +316,7 @@
           <div class="price-feat">Monthly protocol reviews</div>
           <div class="price-feat">Brand recommendations</div>
         </div>
-        <button class="price-cta" data-scroll-to-form>Get my stack</button>
+        <button class="price-cta" data-open-guide-modal>Get my stack</button>
       </div>
       <div class="price-card reveal" style="--d:.08s">
         <div class="price-tier">Pragma Plus</div>
@@ -331,7 +328,7 @@
           <div class="price-feat">Ongoing recommendation updates</div>
           <div class="price-feat">Priority protocol reviews</div>
         </div>
-        <button class="price-cta" data-scroll-to-form>Get my stack</button>
+        <button class="price-cta" data-open-guide-modal>Get my stack</button>
       </div>
       <div class="price-card reveal" style="--d:.16s">
         <div class="price-tier">Pragma Premium</div>
@@ -343,7 +340,7 @@
           <div class="price-feat">Advanced lab analysis*</div>
         </div>
         <p class="price-note">*Genetic testing and laboratory testing are external services and are not included in the subscription price.</p>
-        <button class="price-cta" data-scroll-to-form>Get my stack</button>
+        <button class="price-cta" data-open-guide-modal>Get my stack</button>
       </div>
     </div>
   </div>
@@ -428,10 +425,7 @@
     <p class="final-kicker">Free to get started</p>
     <h2>Get your personalized stack<br /><em>— free.</em></h2>
     <p>Tell us what's going on. Get a Foundation Stack built by Registered Dietitians, specific to your life stage and hormonal status. No credit card. No catch.</p>
-    <div class="final-form">
-      <input type="email" placeholder="you@email.com" required autocomplete="email" aria-label="Email address" />
-      <button>Get my stack</button>
-    </div>
+    <button class="hero-cta-btn" data-open-guide-modal>Get my stack</button>
     <p class="final-note"><i class="ti ti-lock" aria-hidden="true"></i> Your data is encrypted and never sold. Unsubscribe anytime.</p>
   </div>
 </section>
@@ -456,6 +450,37 @@
   </div>
 </footer>
 
+</div>
+
+<!-- ── Guide Modal ───────────────────────────────────────────────────── -->
+<div class="modal-overlay" id="guide-modal" role="dialog" aria-modal="true" aria-labelledby="modal-heading">
+  <div class="modal-panel">
+    <button class="modal-close" aria-label="Close">&times;</button>
+
+    <div class="modal-left">
+      <div class="modal-left-wordmark">PRAGMA.</div>
+      <div class="modal-left-badge">FREE GUIDE</div>
+      <div class="modal-left-title">The Honest<br />Supplement Guide for<br />Women</div>
+      <div class="modal-left-subtitle">How to think about nutrition,<br />hormones, labs, and supplements<br />without the wellness fluff.</div>
+    </div>
+
+    <div class="modal-right">
+      <div class="modal-eyebrow">FREE DOWNLOAD</div>
+      <h2 class="modal-heading" id="modal-heading">The Honest Supplement<br />Guide for Women</h2>
+      <p class="modal-body">Written by our RD team. No brand deals, no filler. Just the framework we use to answer this stuff clearly.</p>
+      <ul class="modal-bullets">
+        <li>How to actually read a supplement label and what matters</li>
+        <li>Which nutrients to consider for your specific life stage</li>
+        <li>Why most women's wellness supplements miss the point</li>
+      </ul>
+      <div class="modal-form">
+        <input type="text" name="first_name" placeholder="First name" required autocomplete="given-name" aria-label="First name" />
+        <input type="email" placeholder="Email address" required autocomplete="email" aria-label="Email address" />
+        <button type="submit">Get the free guide &rarr;</button>
+      </div>
+      <p class="modal-fine">You'll also receive the Pragma newsletter. Unsubscribe anytime.</p>
+    </div>
+  </div>
 </div>
 
 <!-- Supabase JS client (UMD build — exposes window.supabase) -->

@@ -2801,3 +2801,325 @@ button { font-family: inherit; }
 @media (max-width: 560px) {
   .step-rail::after { display: none !important; }
 }
+
+/* ── Guide Modal ─────────────────────────────────────────────────────────── */
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(28, 10, 24, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-overlay.is-open {
+  display: flex;
+}
+
+.modal-panel {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: 660px;
+  border-radius: 20px;
+  box-shadow: 0 8px 48px rgba(28, 10, 24, 0.28), 0 1px 2px rgba(28, 10, 24, 0.12);
+  background: var(--cream);
+  overflow: hidden;
+  border: 1px solid rgba(58, 8, 32, 0.1);
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 10;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: rgba(253, 248, 245, 0.18);
+  border-radius: 50%;
+  color: var(--cream);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+.modal-close:hover { background: rgba(253, 248, 245, 0.3); }
+
+/* Left panel — ~40% width, deep plum with decorative circles */
+.modal-left {
+  flex: 0 0 42%;
+  position: relative;
+  background: var(--plum-deep);
+  color: var(--cream);
+  padding: 36px 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+  min-height: 500px;
+}
+
+/* Decorative circles */
+.modal-left::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: rgba(196, 30, 91, 0.35);
+  pointer-events: none;
+}
+
+.modal-left::after {
+  content: '';
+  position: absolute;
+  bottom: 60px;
+  left: -60px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: rgba(196, 30, 91, 0.2);
+  pointer-events: none;
+}
+
+.modal-left-wordmark {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--cream);
+  opacity: 0.65;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+}
+
+.modal-left-badge {
+  display: inline-flex;
+  align-items: center;
+  background: var(--berry);
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  padding: 4px 10px;
+  border-radius: 100px;
+  width: fit-content;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+}
+
+.modal-left-title {
+  font-family: var(--serif);
+  font-size: 21px;
+  line-height: 1.22;
+  color: var(--cream);
+  margin-top: 4px;
+  position: relative;
+  z-index: 1;
+}
+
+.modal-left-subtitle {
+  font-family: var(--sans);
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--cream);
+  opacity: 0.6;
+  position: relative;
+  z-index: 1;
+}
+
+.modal-left-cover {
+  margin-top: auto;
+  border: 1px dashed rgba(253, 248, 245, 0.22);
+  border-radius: 12px;
+  padding: 28px 12px;
+  text-align: center;
+  font-family: var(--sans);
+  font-size: 10px;
+  color: var(--cream);
+  opacity: 0.4;
+  position: relative;
+  z-index: 1;
+}
+
+/* Right panel — ~60% width, cream */
+.modal-right {
+  flex: 1;
+  padding: 32px 28px 28px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--cream);
+}
+
+.modal-eyebrow {
+  font-family: var(--sans);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--berry);
+  text-transform: uppercase;
+}
+
+.modal-heading {
+  font-family: var(--serif);
+  font-size: 22px;
+  line-height: 1.2;
+  color: var(--ink);
+  margin: 0;
+}
+
+.modal-body {
+  font-family: var(--sans);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--body-c);
+  margin: 0;
+}
+
+.modal-bullets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.modal-bullets li {
+  font-family: var(--sans);
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--body-c);
+  padding-left: 18px;
+  position: relative;
+}
+
+.modal-bullets li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 11px;
+  color: var(--berry);
+  font-weight: 700;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.modal-form input {
+  width: 100%;
+  padding: 9px 13px;
+  border: 1px solid rgba(58, 8, 32, 0.16);
+  border-radius: 8px;
+  background: #fff;
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+}
+
+.modal-form input::placeholder {
+  color: var(--mauve);
+  opacity: 0.7;
+}
+
+.modal-form input:focus {
+  border-color: var(--berry);
+  box-shadow: 0 0 0 3px rgba(196, 30, 91, 0.1);
+}
+
+.modal-form button[type="submit"] {
+  width: 100%;
+  padding: 11px 20px;
+  background: var(--berry);
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  letter-spacing: 0.01em;
+}
+
+.modal-form button[type="submit"]:hover {
+  background: var(--berry-2);
+}
+
+.modal-form button[type="submit"]:active {
+  transform: scale(0.98);
+}
+
+.modal-fine {
+  font-family: var(--sans);
+  font-size: 10.5px;
+  color: var(--mauve);
+  line-height: 1.5;
+  margin: 0;
+  opacity: 0.8;
+}
+
+/* Hero standalone CTA button */
+.hero-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 15px 32px;
+  background: var(--berry);
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  letter-spacing: 0.01em;
+}
+
+.hero-cta-btn:hover  { background: var(--berry-2); }
+.hero-cta-btn:active { transform: scale(0.98); }
+
+/* Responsive */
+@media (max-width: 580px) {
+  .modal-panel {
+    flex-direction: column;
+    max-height: 92vh;
+    overflow-y: auto;
+  }
+  .modal-left {
+    flex: none;
+    min-height: auto;
+    padding: 24px 20px 20px;
+    gap: 8px;
+  }
+  .modal-left::before { width: 160px; height: 160px; top: -50px; right: -50px; }
+  .modal-left::after  { display: none; }
+  .modal-left-cover   { display: none; }
+  .modal-right        { padding: 20px; }
+  .modal-heading      { font-size: 19px; }
+  .modal-close        { color: var(--cream); background: rgba(28,10,24,0.25); }
+}
