@@ -1985,6 +1985,23 @@ button { font-family: inherit; }
   margin-bottom: 3px;
 }
 .timeline-text p { font-size: 14px; color: var(--body-c); line-height: 1.6; }
+.timeline-meta {
+  display: block;
+  font-size: 12px;
+  color: var(--body-c);
+  opacity: 0.6;
+  margin-bottom: 6px;
+  font-style: italic;
+}
+.timeline-footnote {
+  font-size: 12px;
+  color: var(--body-c);
+  opacity: 0.65;
+  line-height: 1.7;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
 
 .confirm-footer { text-align: center; padding-top: 1.5rem; }
 .confirm-footer p { font-size: 14px; color: var(--body-c); margin-bottom: 1.5rem; }
